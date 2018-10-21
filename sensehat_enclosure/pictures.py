@@ -168,3 +168,36 @@ button_on = [
     N, N, N, G, G, G, N, N,
     N, N, N, N, N, N, N, N
 ]
+
+raspi = [
+    O, G, G, O, O, G, G, O,
+    O, O, G, G, G, G, O, O,
+    O, O, R, R, R, R, O, O,
+    O, R, R, R, R, R, R, O,
+    R, R, R, R, R, R, R, R,
+    R, R, R, R, R, R, R, R,
+    O, R, R, R, R, R, R, O,
+    O, O, R, R, R, R, O, O,
+]
+
+plus = [
+    O, O, O, O, O, O, O, O,
+    O, O, O, W, W, O, O, O,
+    O, O, O, W, W, O, O, O,
+    O, W, W, W, W, W, W, O,
+    O, W, W, W, W, W, W, O,
+    O, O, O, W, W, O, O, O,
+    O, O, O, W, W, O, O, O,
+    O, O, O, O, O, O, O, O,
+    ]
+
+equals = [
+    O, O, O, O, O, O, O, O,
+    O, W, W, W, W, W, W, O,
+    O, W, W, W, W, W, W, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, W, W, W, W, W, W, O,
+    O, W, W, W, W, W, W, O,
+    O, O, O, O, O, O, O, O,
+    ]
