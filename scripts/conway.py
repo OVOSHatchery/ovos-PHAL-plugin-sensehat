@@ -1,0 +1,161 @@
+from itertools import product
+from random import choice
+from time import sleep
+from sense_hat import SenseHat
+
+
+sense = SenseHat()
+
+class GameOfLife(object):
+    """
+    """
+    def __init__(self, width, height, infinite=True):
+        """
+
+        Args:
+            width:
+            height:
+        """
+        self.infinite = infinite
+        self.size = (width, height)
+        self.random_world()
+        self.last = None
+        self.pre = None
+        self.max_loops = 20
+        self.loop = 0
+
+    def __str__(self):
+        """
+
+        Returns:
+
+        """
+        width, height = self.size
+        return '\n'.join(
+            ' '.join(
+                self.draw_cell(x, y) for x in range(width)
+            )
+            for y in range(height)
+        )
+
+    def __iter__(self):
+        """
+
+        Returns:
+
+        """
+        return self
+
+    def __next__(self):
+        """
+
+        Returns:
+
+        """
+        self.evolve_world()
+        return self
+
+    next = __next__
+
+    def evolve_cell(self, cell):
+        """
+
+        Args:
+            cell:
+
+        Returns:
+
+        """
+        alive = cell in self.live_cells
+        neighbours = self.count_neighbours(cell)
+        return neighbours == 3 or (alive and neighbours == 2)
+
+    def count_neighbours(self, cell):
+        """
+
+        Args:
+            cell:
+
+        Returns:
+
+        """
+        x, y = cell
+        deltas = set(product([-1, 0, 1], repeat=2)) - set([(0, 0)])
+        neighbours = ((x + dx, y + dy) for (dx, dy) in deltas)
+        return sum(neighbour in self.live_cells for neighbour in neighbours)
+
+    def evolve_world(self):
+        """
+
+        """
+        width, height = self.size
+        world = product(range(width), range(height))
+        # infinite
+        self.pre = self.last
+        self.last = self.live_cells
+        self.live_cells = {cell for cell in world if self.evolve_cell(cell)}
+        if self.infinite:
+            if self.live_cells == self.last or self.live_cells == self.pre:
+                self.loop += 1
+            if self.loop > self.max_loops:
+                self.loop = 0
+                self.random_world()
+
+    def random_world(self):
+        """
+
+        """
+        width, height = self.size
+        world = product(range(width), range(height))
+        self.live_cells = {cell for cell in world if choice([0, 1])}
+
+    def draw_cell(self, x, y):
+        """
+
+        Args:
+            x:
+            y:
+
+        Returns:
+
+        """
+        cell = (x, y)
+        return 'O' if cell in self.live_cells else ' '
+
+    def get_cell_color(self, x, y):
+        """
+
+        Args:
+            x:
+            y:
+
+        Returns:
+
+        """
+        cell = (x, y)
+        green = (0, 255, 0)
+        black = (0, 0, 0)
+        return green if cell in self.live_cells else black
+
+    def update(self):
+        """
+
+        """
+        width, height = self.size
+        for x in range(width):
+            for y in range(height):
+                color = self.get_cell_color(x, y)
+                sense.set_pixel(x, y, color)
+
+
+def main():
+    """
+
+    """
+    game = GameOfLife(8, 8)
+    for i in game:
+        game.update()
+        sleep(0.1)
+
+if __name__ == '__main__':
+    main()
