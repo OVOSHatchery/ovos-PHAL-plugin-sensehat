@@ -1,3 +1,4 @@
+
 import sense_hat
 from time import sleep, time
 from random import randint
@@ -56,7 +57,7 @@ def debug_pause(message):
     # To examine a specific portion of the program, add a debug_pause with a message
     # Or, change an existing debug_message call to debug_pause to pause there
     if debug_mode:
-        input(str(message) + "  Press enter to continue...")
+        eval(input(str(message) + "  Press enter to continue..."))
 
 
 # Get true color values for comparisons: get_pixel() sometimes returns different values

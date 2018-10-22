@@ -1,3 +1,5 @@
+from builtins import range
+from builtins import object
 from itertools import product
 from random import choice
 from time import sleep
@@ -9,7 +11,7 @@ sense = SenseHat()
 class GameOfLife(object):
     """
     """
-    def __init__(self, width, height, infinite=True):
+    def __init__(self, width, height, infinite=False):
         """
 
         Args:
@@ -89,7 +91,7 @@ class GameOfLife(object):
 
         """
         width, height = self.size
-        world = product(range(width), range(height))
+        world = product(list(range(width)), list(range(height)))
         # infinite
         self.pre = self.last
         self.last = self.live_cells
@@ -106,7 +108,7 @@ class GameOfLife(object):
 
         """
         width, height = self.size
-        world = product(range(width), range(height))
+        world = product(list(range(width)), list(range(height)))
         self.live_cells = {cell for cell in world if choice([0, 1])}
 
     def draw_cell(self, x, y):

@@ -1,4 +1,6 @@
 #!/usr/bin/python
+from __future__ import division
+from past.utils import old_div
 import time
 from sense_hat import SenseHat
 
@@ -15,7 +17,7 @@ pixels = [
     [0, 255, 183], [0, 217, 255], [0, 109, 255], [0, 0, 255], [110, 0, 255], [218, 0, 255], [255, 0, 183], [255, 0, 74]
 ]
 
-msleep = lambda x: time.sleep(x / 1000.0)
+msleep = lambda x: time.sleep(old_div(x, 1000.0))
 
 
 def next_colour(pix):

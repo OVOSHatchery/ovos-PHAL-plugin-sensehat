@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+from __future__ import division
+from builtins import str
+from past.utils import old_div
 import time, math, random
 import sense_hat
 
@@ -77,7 +80,7 @@ def check_pos():
     level = state["level"]
     enemies = state["enemies"]
 
-    weaker = int(10 * (level / 2))
+    weaker = int(10 * (old_div(level, 2)))
     stronger = 10
     radius = 2.5
     fdist = distance(bug_x, bug_y, food_x, food_y)

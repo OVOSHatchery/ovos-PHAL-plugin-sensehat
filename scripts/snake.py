@@ -3,6 +3,9 @@ from sense_hat import SenseHat  # For a real Sense HAT plugged into your Pi
 from time import sleep
 from random import randint
 
+def old_div(a, b):
+    return a//b
+
 sense = SenseHat()
 
 # All the variables used in this program:
@@ -86,7 +89,7 @@ def draw_snake(t):
         snake_pos[1] = 7
     # If the snake wants to go beyond the screen, make it reappear from the opposite edge.
 
-    for i in range(0, int(len(snake_pos) / 2)):
+    for i in range(0, int(old_div(len(snake_pos), 2))):
         if i == 0:
             # Draw the snake head as a bright blue
             sense.set_pixel(snake_pos[2 * (i)], snake_pos[2 * (i) + 1], 0, 255,
@@ -144,7 +147,7 @@ while True:
     sense.clear()
 
     end = False
-    for i in range(1, int(len(snake_pos) / 2) - 1):
+    for i in range(1, int(old_div(len(snake_pos), 2)) - 1):
         # Because this loop runs as many times as the snake has segments (to check if the
         # snake is eating itself), the code inside is contained in an if, which evaluates
         # to false once it is determined that the snake has eaten itself.
